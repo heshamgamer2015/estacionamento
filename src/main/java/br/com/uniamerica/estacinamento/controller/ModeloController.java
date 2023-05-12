@@ -1,53 +1,51 @@
 package br.com.uniamerica.estacinamento.controller;
 
-
-import br.com.uniamerica.estacinamento.entity.Marca;
-import br.com.uniamerica.estacinamento.repository.MarcaRepository;
-import br.com.uniamerica.estacinamento.service.MarcaService;
+import br.com.uniamerica.estacinamento.entity.Modelo;
+import br.com.uniamerica.estacinamento.repository.ModeloRepository;
+import br.com.uniamerica.estacinamento.service.ModeloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-@RequestMapping( "/api/marca")
-public class MarcaController {
+@RequestMapping(value = "/api/modelo")
+public class ModeloController {
 
     @Autowired
-    private MarcaRepository marcaRepository;
+    private ModeloRepository modeloRepository;
 
     @Autowired
-    private MarcaService marcaService;
+    private ModeloService modeloService;
 
     @GetMapping
     public ResponseEntity<?> findById(@RequestParam("id") final Long id){
-        Marca marca = this.marcaRepository.findById(id).orElse(null);
+        final Modelo modelo = this.modeloRepository.findById(id).orElse(null);
 
-        return marca == null
+        return modelo == null
                 ? ResponseEntity.badRequest().body("Nenhum valor encontrado")
-                : ResponseEntity.ok(marca);
+                : ResponseEntity.ok(modelo);
     }
 
     @GetMapping("/lista")
     public ResponseEntity<?> listaCompleta(){
-        return ResponseEntity.ok(this.marcaRepository.findAll());
+        return ResponseEntity.ok(this.modeloRepository.findAll());
     }
 
+
     @GetMapping("/ativo")
-    public ResponseEntity<?> findByAtivo(){
-        return ResponseEntity.ok(this.marcaRepository.findByAtivo());
+    public ResponseEntity<?> findByAtivo() {
+        return ResponseEntity.ok(this.modeloRepository.findByAtivo());
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody final Marca marca){
-        try {
-            this.marcaService.cadastrar(marca);
-            return ResponseEntity.ok("Registrado cadastrado com Sucesso");
+    public ResponseEntity<?> cadastrar(@RequestBody final Modelo modelo){
+        try{
+            this.modeloService.cadastrar(modelo);
+            return ResponseEntity.ok("Registro Cadastrado com Sucesso");
         }
-        catch (DataIntegrityViolationException e) {
+        catch (DataIntegrityViolationException e){
             return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
         }
         catch (RuntimeException e){
@@ -55,13 +53,14 @@ public class MarcaController {
         }
     }
 
+
     @PutMapping
     public ResponseEntity<?> editar(@RequestParam("id") final Long id,
-                                    @RequestBody final Marca marca
+                                    @RequestBody final Modelo modelo
     ){
-        try{
-            this.marcaService.editar(marca, id);
-            return ResponseEntity.ok("Registro atualizacao com sucesso");
+        try {
+            this.modeloService.editar(modelo, id);
+            return ResponseEntity.ok("Registro Atualizado com Sucesso");
         }
         catch (DataIntegrityViolationException e){
             return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
@@ -73,11 +72,11 @@ public class MarcaController {
 
     @DeleteMapping
     public ResponseEntity<?> deletar (@RequestParam ("id") final Long id){
+        final Modelo modeloBanco = this.modeloRepository.findById(id).orElse(null);
 
-        final Marca marcaBanco = this.marcaRepository.findById(id).orElse(null);
+        this.modeloService.deletar(modeloBanco);
 
-        this.marcaService.deletar(marcaBanco);
-
-        return ResponseEntity.ok("Marca deletada com sucesso");
+        return ResponseEntity.ok("Modelo deletado com sucesso");
     }
 }
+

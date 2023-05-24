@@ -37,6 +37,8 @@ public class MovimentacaoService {
         Assert.isTrue(movimentacao.getCondutorId() != null, "Condutor não encontrado");
 
         Assert.isTrue(movimentacao.getEntrada() != null, "Entrada está invalida");
+        this.movimentacaoRepository.save(movimentacao);
+
 
     }
 

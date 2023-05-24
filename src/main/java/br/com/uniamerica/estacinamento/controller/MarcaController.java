@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping( "/api/marca")
 public class MarcaController {
@@ -21,7 +19,6 @@ public class MarcaController {
 
     @Autowired
     private MarcaService marcaService;
-
     @GetMapping
     public ResponseEntity<?> findById(@RequestParam("id") final Long id){
         Marca marca = this.marcaRepository.findById(id).orElse(null);

@@ -41,19 +41,15 @@ public class CondutorController {
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody final Condutor condutor){
         try {
-          //  this.condutorService.cadastrar(condutor);
+             this.condutorService.cadastrar(condutor);
             return ResponseEntity.ok("Registrado com Sucesso");
         }
         catch (DataIntegrityViolationException e){
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
         catch (RuntimeException e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-        }
-        catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
-
     }
 
     @PutMapping

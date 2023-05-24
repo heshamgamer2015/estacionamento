@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @Controller
 @RequestMapping(value = "/api/configuracao")
 public class ConfiguracaoController {
@@ -20,7 +18,6 @@ public class ConfiguracaoController {
 
     @Autowired
     private ConfiguracaoService configuracaoService;
-
     @GetMapping
     public ResponseEntity<?> findById(@RequestParam("id") final Long id){
         final Configuracao configuracao = this.configuracaoRepository.findById(id).orElse(null);

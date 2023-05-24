@@ -22,7 +22,7 @@ public class CondutorService {
 
         Assert.isTrue(condutor.getCpf() != null,"O cpf está nulo");
 
-        String regexCpf = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$";
+        String regexCpf = "^\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}$";
 
         Assert.isTrue(condutor.getCpf().matches(regexCpf), "Cpf invalido");
 
@@ -32,7 +32,7 @@ public class CondutorService {
 
         Assert.isTrue(condutor.getNome() != null, "Nome está nulo");
 
-        String padrao = "\\+\\d{2}\\(\\d{3}\\)\\d{5}-\\d{4}";
+        String padrao = "\\+\\d{2}\\(\\d{2,3}\\)\\d{5}-\\d{4}";
 
         Assert.isTrue(condutor.getTelefone().matches(padrao), "formato do telefone invalido");
 

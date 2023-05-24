@@ -14,7 +14,7 @@ import org.hibernate.envers.Audited;
 @Audited
 @AuditTable(value = "marcas_audit", schema = "audit")
 public class Marca extends AbstractEntity {
-        @Getter
+    @Getter
     @Setter
     @Column(name = "nome", length = 50, nullable = false, unique = true)
     private String nome;

@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value = "/api/movimentacao")
 public class MovimentacaoController {
-
     @Autowired
     private MovimentacaoRepository movimentacaoRepository;
-
     @Autowired
     private MovimentacaoService movimentacaoService;
-
     @GetMapping
     public ResponseEntity<?> findById(@RequestParam("id") final Long id){
         final Movimentacao movimentacao = this.movimentacaoRepository.findById(id).orElse(null);

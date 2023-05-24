@@ -57,7 +57,10 @@ public class ConfiguracaoService {
         Assert.isTrue(configuracao.getVagasCarro() != null, "Nao pode ser nulo");
 
         Assert.isTrue(configuracao.getVagasVan() != null, "Nao pode ser nulo");
+        this.configuracaoRepository.save(configuracao);
+
     }
+
 
 
 }

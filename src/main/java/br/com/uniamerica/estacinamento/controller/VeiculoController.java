@@ -18,7 +18,6 @@ public class VeiculoController {
 
     @Autowired
     private VeiculoService veiculoService;
-
     @GetMapping
     public ResponseEntity<?> getById(@RequestParam("id") final Long id){
         Veiculo veiculo = this.veiculoRepository.findById(id).orElse(null);

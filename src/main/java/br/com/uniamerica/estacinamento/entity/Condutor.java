@@ -8,13 +8,14 @@ import lombok.Setter;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 
 @Entity
 @Audited
 @Table(name = "condutores", schema = "public")
 @AuditTable(value = "condutores_audit", schema = "audit")
-public class Condutor extends AbstractEntity {
+public class Condutor extends AbstractEntity{
     @Getter @Setter
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
@@ -25,11 +26,10 @@ public class Condutor extends AbstractEntity {
     @Column(name = "telefone", length = 20, nullable = false, unique = true)
     private String telefone;
     @Getter @Setter
-    @Column(name = "tempo_pago", nullable = false)
-    private LocalTime tempoPago;
+    @Column(name = "tempo_pago")
+    private BigDecimal tempoPago;
     @Getter @Setter
-    @Column(name = "tempo_desconto", nullable = false)
+    @Column(name = "tempo_desconto")
     private LocalTime tempoDesconto;
-
 
 }

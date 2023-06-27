@@ -79,4 +79,3 @@ public class ModeloController {
         return ResponseEntity.ok("Modelo deletado com sucesso");
     }
 }
-

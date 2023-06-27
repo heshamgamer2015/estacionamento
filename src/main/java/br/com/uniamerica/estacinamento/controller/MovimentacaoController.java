@@ -1,5 +1,6 @@
 package br.com.uniamerica.estacinamento.controller;
 
+import br.com.uniamerica.estacinamento.Recibo;
 import br.com.uniamerica.estacinamento.entity.Movimentacao;
 import br.com.uniamerica.estacinamento.repository.MovimentacaoRepository;
 import br.com.uniamerica.estacinamento.service.MovimentacaoService;
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value = "/api/movimentacao")
 public class MovimentacaoController {
+
     @Autowired
     private MovimentacaoRepository movimentacaoRepository;
+
     @Autowired
     private MovimentacaoService movimentacaoService;
+
     @GetMapping
     public ResponseEntity<?> findById(@RequestParam("id") final Long id){
         final Movimentacao movimentacao = this.movimentacaoRepository.findById(id).orElse(null);
@@ -39,8 +43,14 @@ public class MovimentacaoController {
             this.movimentacaoService.cadastrar(movimentacao);
             return ResponseEntity.ok("Registrado com Sucesso");
         }
-        catch (DataIntegrityViolationException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
+        catch (DataIntegrityViolationException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
     @PutMapping
@@ -58,6 +68,19 @@ public class MovimentacaoController {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
+
+    @PutMapping("/saida")
+    public ResponseEntity<?> setSaida(@RequestParam("id") final Long id){
+        try{
+            Recibo recibo = this.movimentacaoService.saida(id);
+
+            return ResponseEntity.ok(recibo);
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
     @DeleteMapping
     public ResponseEntity<?> deletar(@RequestParam("id") final Long id){
         final Movimentacao movimentacao = this.movimentacaoRepository.findById(id).orElse(null);

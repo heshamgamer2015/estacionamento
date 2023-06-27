@@ -18,6 +18,7 @@ public class ConfiguracaoController {
 
     @Autowired
     private ConfiguracaoService configuracaoService;
+
     @GetMapping
     public ResponseEntity<?> findById(@RequestParam("id") final Long id){
         final Configuracao configuracao = this.configuracaoRepository.findById(id).orElse(null);

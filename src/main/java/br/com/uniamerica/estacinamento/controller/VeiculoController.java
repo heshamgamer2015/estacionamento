@@ -1,5 +1,6 @@
 package br.com.uniamerica.estacinamento.controller;
 
+
 import br.com.uniamerica.estacinamento.entity.Veiculo;
 import br.com.uniamerica.estacinamento.repository.VeiculoRepository;
 import br.com.uniamerica.estacinamento.service.VeiculoService;
@@ -18,6 +19,7 @@ public class VeiculoController {
 
     @Autowired
     private VeiculoService veiculoService;
+
     @GetMapping
     public ResponseEntity<?> getById(@RequestParam("id") final Long id){
         Veiculo veiculo = this.veiculoRepository.findById(id).orElse(null);
@@ -42,8 +44,14 @@ public class VeiculoController {
             this.veiculoService.cadastrar(veiculo);
             return ResponseEntity.ok("Registrado com Sucesso");
         }
-        catch (DataIntegrityViolationException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
+        catch (DataIntegrityViolationException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 

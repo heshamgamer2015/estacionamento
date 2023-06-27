@@ -1,8 +1,5 @@
 package br.com.uniamerica.estacinamento.entity;
 
-import br.com.uniamerica.estacinamento.entity.AbstractEntity;
-import br.com.uniamerica.estacinamento.entity.Condutor;
-import br.com.uniamerica.estacinamento.entity.Veiculo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +14,7 @@ import java.time.LocalTime;
 @Table(name = "movimentacoes", schema = "public")
 @Audited
 @AuditTable(value = "movimentacoes_audit", schema = "audit")
-public class Movimentacao extends AbstractEntity {
+public class Movimentacao extends AbstractEntity{
     @Getter @Setter
     @ManyToOne
     @JoinColumn(name = "veiculo", nullable = false)
@@ -34,7 +31,7 @@ public class Movimentacao extends AbstractEntity {
     private LocalDateTime saida;
     @Getter @Setter
     @Column(name = "tempo")
-    private LocalTime tempo;
+    private Long tempo;
     @Getter @Setter
     @Column(name = "tempo_desconto")
     private LocalTime tempoDesconto;
@@ -43,7 +40,7 @@ public class Movimentacao extends AbstractEntity {
     private LocalTime tempoMulta;
     @Getter @Setter
     @Column(name = "valor_desconto")
-    private BigDecimal valorDesconto;
+    private Long valorDesconto;
     @Getter @Setter
     @Column(name = "valor_multa")
     private BigDecimal valorMulta;

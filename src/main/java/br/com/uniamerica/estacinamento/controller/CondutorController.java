@@ -1,5 +1,6 @@
 package br.com.uniamerica.estacinamento.controller;
 
+
 import br.com.uniamerica.estacinamento.entity.Condutor;
 import br.com.uniamerica.estacinamento.repository.CondutorRepository;
 import br.com.uniamerica.estacinamento.service.CondutorService;
@@ -41,15 +42,19 @@ public class CondutorController {
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody final Condutor condutor){
         try {
-             this.condutorService.cadastrar(condutor);
+            this.condutorService.cadastrar(condutor);
             return ResponseEntity.ok("Registrado com Sucesso");
         }
         catch (DataIntegrityViolationException e){
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
         catch (RuntimeException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
+
     }
 
     @PutMapping
@@ -72,8 +77,9 @@ public class CondutorController {
     public ResponseEntity<?> deletar (@RequestParam ("id") final Long id) {
         final Condutor condutorBanco = this.condutorRepository.findById(id).orElse(null);
 
-       this.condutorService.deletar(condutorBanco);
+        this.condutorService.deletar(condutorBanco);
 
         return ResponseEntity.ok("Condutor deletado com sucesso");
     }
 }
+

@@ -1,7 +1,7 @@
 package br.com.uniamerica.estacinamento.controller;
 
-
 import br.com.uniamerica.estacinamento.entity.Marca;
+import br.com.uniamerica.estacinamento.entity.Modelo;
 import br.com.uniamerica.estacinamento.repository.MarcaRepository;
 import br.com.uniamerica.estacinamento.service.MarcaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping( "/api/marca")
@@ -19,6 +21,7 @@ public class MarcaController {
 
     @Autowired
     private MarcaService marcaService;
+
     @GetMapping
     public ResponseEntity<?> findById(@RequestParam("id") final Long id){
         Marca marca = this.marcaRepository.findById(id).orElse(null);

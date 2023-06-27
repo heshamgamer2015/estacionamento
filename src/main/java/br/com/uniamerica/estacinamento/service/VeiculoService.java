@@ -1,6 +1,5 @@
 package br.com.uniamerica.estacinamento.service;
 
-
 import br.com.uniamerica.estacinamento.entity.Movimentacao;
 import br.com.uniamerica.estacinamento.entity.Veiculo;
 import br.com.uniamerica.estacinamento.repository.VeiculoRepository;
@@ -37,6 +36,10 @@ public class VeiculoService {
         Assert.isTrue(veiculo.getAno() != null, "ano não encontrado");
 
         Assert.isTrue(this.veiculoRepository.findByPlaca(veiculo.getPlaca()).isEmpty(), "a placa ja existe");
+
+        Long atual = 2024L;
+
+        Assert.isTrue(veiculo.getAno() < atual, "Ano invalido para veiculo");
 
         this.veiculoRepository.save(veiculo);
     }

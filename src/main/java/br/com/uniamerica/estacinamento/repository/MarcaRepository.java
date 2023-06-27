@@ -1,6 +1,5 @@
 package br.com.uniamerica.estacinamento.repository;
 
-
 import br.com.uniamerica.estacinamento.entity.Marca;
 import br.com.uniamerica.estacinamento.entity.Modelo;
 import org.springframework.data.jpa.repository.JpaRepository;

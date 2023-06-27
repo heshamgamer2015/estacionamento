@@ -1,16 +1,13 @@
 package br.com.uniamerica.estacinamento.entity;
 
-import jakarta.persistence.MappedSuperclass;
-
 import jakarta.persistence.*;
-import lombok.Setter;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @MappedSuperclass
 public abstract class AbstractEntity{
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
@@ -28,12 +25,14 @@ public abstract class AbstractEntity{
 
 
     @PrePersist
-    private void prePresit(){
+    private void prePersist(){
         this.cadastro = LocalDateTime.now();
         this.ativo = true;
     }
+
     @PreUpdate
     private void preUpdate(){
         this.atualizacao = LocalDateTime.now();
     }
+
 }
